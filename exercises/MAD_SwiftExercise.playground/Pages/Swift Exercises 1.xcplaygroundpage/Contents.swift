@@ -187,8 +187,40 @@ callAClosure(closure: { (item1: String, item2: String) -> String in
 //: 1. Create a new class named `Person`. Add non-optional `firstName` and `lastName` properties and an initializer.
 //: 1. Add a `name` computed property that returns a `String` containing the first and last name.
 //: 1. Add a method named `greet` that returns the following `String`: `"Hi, I'm \(name)."`
+
+class Person {
+   var firstName: String
+   var lastName: String
+
+    var name: String {
+        return "\(firstName) \(lastName)"
+    }
+
+    func greet() -> String {
+        var greeting = "Hi, I'm " + self.name + "!"
+        return greeting
+    }
+}
 //: 1. Create a subclass of `Person` and name it `Student`.
 //: 1. Add a `Float?` optional property called `grade`. Use the `didSet` property observer to make sure that the grade is not lower than 1.0 and not higher than 5.0 after it was set. Clamp the new value to this interval - so if a value higher than 5.0 is set, set it to 5.0 afterwards. If a value lower than 1.0 is set, set it to 1.0 afterwards.
+class Student: Person {
+    var grade: Float? {
+            didSet {
+                if (grade > 5.0)  {
+                    grade = 5.0
+                }
+                else if (grade < 1.0){
+                    grade = 1.0
+                }
+            }
+    }
+
+    override func greet() -> String {
+        var greeting = "Hi, I'm " + self.name + self.grade + "!"
+        return greeting
+    }
+}
+
 //: 1. Override the `greet` function from the superclass. If the `grade` property is set, it should now return `"Hi, I'm \(name). My grade is: \(grade)"`. If the `grade property isn't set, return the superclass's implementation.
 
 //: ### Enums and Structs
